@@ -33,7 +33,7 @@ class MinSpreadCalculator {
                     day = rowParsed.get("day").toInt()
                 }
             }
-            return day
+            day
         } catch (ex: NoSuchFileException) {
             println("No such File $FILE_PATH")
             null
