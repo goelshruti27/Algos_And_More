@@ -1,0 +1,45 @@
+package com.jpmc.am.spectrum.trading.mm.endpoint
+
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVParser
+import java.lang.Integer.MAX_VALUE
+import java.nio.file.Files
+import java.nio.file.Paths
+
+const val FILE_PATH = """C:\\Users\\Shruti\\data.csv"""
+class CsvParsing {
+
+    public fun calculateMinSpread(): Int? {
+        return try {
+            var day = 0
+            var minSpread = MAX_VALUE
+            val reader = Files.newBufferedReader(
+                Paths.get(
+                    FILE_PATH
+                )
+            )
+            val parserCsv = CSVParser(
+                reader , CSVFormat.DEFAULT
+                    .withFirstRecordAsHeader()
+                    .withIgnoreHeaderCase()
+                    .withTrim()
+            )
+            for (rowParsed in parserCsv) {
+                var max = rowParsed.get("max").toInt()
+                var min = rowParsed.get("min").toInt()
+                val calMinSpread = max - min
+                if (calMinSpread < minSpread) {
+                    minSpread = calMinSpread
+                    day = rowParsed.get("day").toInt()
+                }
+            }
+            return day
+        } catch (ex: NoSuchFileException) {
+            println("No such File $FILE_PATH")
+            null
+        } catch(e: Exception) {
+            println("Handle Exception")
+            null
+        }
+    }
+}
