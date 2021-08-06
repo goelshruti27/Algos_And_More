@@ -7,7 +7,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 const val FILE_PATH = """C:\\Users\\Shruti\\data.csv"""
-class CsvParsing {
+class MinSpreadCalculator {
 
     public fun calculateMinSpread(): Int? {
         return try {
